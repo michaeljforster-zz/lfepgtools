@@ -1,0 +1,13 @@
+{application, lfepgtools,
+ [{description, "epgsql/pgapp utilities written in LFE"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules,
+   [lfepgtools
+   ]}
+ ]}.
