@@ -14,7 +14,7 @@
                (tuple 'password password))))
 
 (defun query-one (pool-name sql parameters row-converter)
-  (case (pgapp:query pool-name sql parameters)
+  (case (pgapp:equery pool-name sql parameters)
     ((= (tuple 'error reason) error)
      error)
     ((tuple 'ok _columns '())
@@ -25,14 +25,14 @@
      (tuple 'ok (funcall row-converter row)))))
 
 (defun query-many (pool-name sql parameters row-converter)
-  (case (pgapp:query pool-name sql parameters)
+  (case (pgapp:equery pool-name sql parameters)
     ((tuple 'ok _columns rows) 
      (tuple 'ok (lists:map row-converter rows)))
     ((= (tuple 'error reason) error)
      error)))
 
 (defun execute (pool-name sql parameters)
-  (case (pgapp:query pool-name sql parameters)
+  (case (pgapp:equery pool-name sql parameters)
     ((tuple 'ok _columns _rows) 
      'ok)
     ((= (tuple 'error reason) error)
